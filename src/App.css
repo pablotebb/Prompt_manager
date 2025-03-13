@@ -1,4 +1,4 @@
-/* Estilos CSS */
+/* Estilos base */
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f9;
@@ -7,7 +7,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .container {
@@ -15,14 +15,18 @@ body {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 400px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 600px;
+  /* Ancho máximo para pantallas grandes */
+  box-sizing: border-box;
 }
 
 h1 {
   text-align: center;
   color: #333;
   margin-bottom: 20px;
+  font-size: 1.5rem;
+  /* Tamaño adaptable */
 }
 
 label {
@@ -30,76 +34,48 @@ label {
   margin-bottom: 5px;
   font-weight: bold;
   color: #555;
+  font-size: 1rem;
 }
 
 input,
-select {
+select,
+textarea {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 1rem;
+  box-sizing: border-box;
 }
 
 .editable-textarea {
-  width: 100%;
   min-height: 100px;
-  /* Altura mínima para permitir ajuste */
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
+  /* Altura mínima */
   resize: vertical;
+  /* Permitir redimensionar verticalmente */
   outline: none;
-  white-space: pre-wrap;
-  /* Permite saltos de línea automáticos */
-  word-break: normal;
-  /* Ajusta palabras largas */
-  overflow-wrap: break-word;
-  /* Maneja palabras largas */
-  /* caret-color: black; */
-  /* Color del cursor */
+  caret-color: black;
 }
 
-.editable-textarea span[role] {
-  font-weight: bold;
-}
-
-.editable-textarea span[role="rol"] {
-  color: blue;
-}
-
-.editable-textarea span[role="task"] {
-  color: lightcoral;
-}
-
-.editable-textarea span[role="format"] {
-  color: green;
-}
-
-.editable-textarea span[role="context"] {
-  color: orange;
-}
-
-.editable-textarea span[role="reference"] {
-  color: purple;
-}
-
-.editable-textarea span[role="constraints"] {
-  color: darkred;
+.button-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  /* Para que los botones se ajusten en pantallas pequeñas */
+  padding-bottom: 20px;
 }
 
 button {
-  display: inline-block;
+  flex: 1;
+  /* Los botones ocupan todo el ancho disponible */
   padding: 10px 15px;
   background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 1rem;
   transition: background-color 0.3s ease;
 }
 
@@ -107,15 +83,61 @@ button:hover {
   background-color: #0056b3;
 }
 
-.button-group {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
 .error {
   color: red;
-  font-size: 12px;
+  font-size: 0.9rem;
   margin-top: -10px;
   margin-bottom: 10px;
+}
+
+/* Media queries para pantallas más pequeñas */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.2rem;
+  }
+
+  label {
+    font-size: 0.9rem;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font-size: 0.9rem;
+  }
+
+  .container {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1rem;
+  }
+
+  label {
+    font-size: 0.8rem;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font-size: 0.8rem;
+    padding: 8px;
+  }
+
+  .button-group {
+    flex-direction: column;
+    /* Botones uno debajo del otro */
+  }
+
+  button {
+    flex: none;
+    /* Los botones ya no se expanden */
+    width: 100%;
+    /* Ocupan todo el ancho */
+  }
 }
