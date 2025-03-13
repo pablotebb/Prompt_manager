@@ -44,21 +44,23 @@ select {
 
 .editable-textarea {
   width: 100%;
-  min-height: 50px;
+  min-height: 100px;
   /* Altura mínima para permitir ajuste */
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
-  outline: none;
   resize: vertical;
+  outline: none;
   white-space: pre-wrap;
   /* Permite saltos de línea automáticos */
-  word-break: break-word;
+  word-break: normal;
   /* Ajusta palabras largas */
   overflow-wrap: break-word;
   /* Maneja palabras largas */
+  /* caret-color: black; */
+  /* Color del cursor */
 }
 
 .editable-textarea span[role] {
@@ -108,6 +110,7 @@ button:hover {
 .button-group {
   display: flex;
   gap: 10px;
+  margin-bottom: 20px;
 }
 
 .error {

@@ -7,8 +7,8 @@ function App() {
     return savedPrompts ? JSON.parse(savedPrompts) : {};
   });
   const [promptName, setPromptName] = useState("");
-  const [promptContent, setPromptContent] = useState(
-    '<span role="rol">[Rol]</span> <span role="task">[Tarea]</span> <span role="format">[Formato]</span> <span role="context">[Contexto]</span> <span role="reference">[Referencias]</span> <span role="constraints">[Restricciones]</span>'
+  const [content, setContent] = useState(
+    "[Rol] [Tarea] [Formato] [Contexto] [Referencias] [Restricciones]"
   );
   const [selectedPrompt, setSelectedPrompt] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -17,14 +17,15 @@ function App() {
     localStorage.setItem("prompts", JSON.stringify(prompts));
   }, [prompts]);
 
-  const updateDropdown = () => {
-    if (Object.keys(prompts).length === 0) {
-      setSelectedPrompt("");
-    }
+  const clearForm = () => {
+    setPromptName("");
+    setContent(
+      "[Rol] [Tarea] [Formato] [Contexto] [Referencias] [Restricciones]"
+    );
   };
 
   const handleAdd = () => {
-    if (!promptName || !promptContent.trim()) {
+    if (!promptName || !content.trim()) {
       setErrorMessage("Por favor, completa todos los campos.");
       return;
     }
@@ -32,13 +33,13 @@ function App() {
       setErrorMessage("El prompt ya existe. Usa otro nombre o actualízalo.");
       return;
     }
-    setPrompts({ ...prompts, [promptName]: promptContent });
+    setPrompts({ ...prompts, [promptName]: content });
     setErrorMessage("");
     clearForm();
   };
 
   const handleUpdate = () => {
-    if (!promptName || !promptContent.trim()) {
+    if (!promptName || !content.trim()) {
       setErrorMessage("Por favor, completa todos los campos.");
       return;
     }
@@ -46,7 +47,7 @@ function App() {
       setErrorMessage("El prompt no existe. Añádelo primero.");
       return;
     }
-    setPrompts({ ...prompts, [promptName]: promptContent });
+    setPrompts({ ...prompts, [promptName]: content });
     setErrorMessage("");
     clearForm();
   };
@@ -67,16 +68,9 @@ function App() {
     clearForm();
   };
 
-  const clearForm = () => {
-    setPromptName("");
-    setPromptContent(
-      '<span role="rol">[Rol]</span> <span role="task">[Tarea]</span> <span role="format">[Formato]</span> <span role="context">[Contexto]</span> <span role="reference">[Referencias]</span> <span role="constraints">[Restricciones]</span>'
-    );
-  };
-
   return (
     <div className="container">
-      <h1>Prompt Manager</h1>
+      <h1>Gestor de Prompts</h1>
       <form id="promptForm">
         <label htmlFor="promptNameInput">Nombre del Prompt</label>
         <input
@@ -88,13 +82,12 @@ function App() {
         />
 
         <label htmlFor="promptContent">Contenido</label>
-        <div
+        <textarea
           id="promptContent"
           className="editable-textarea"
-          contentEditable
-          dangerouslySetInnerHTML={{ __html: promptContent }}
-          onInput={(e) => setPromptContent(e.target.innerHTML)}
-        ></div>
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        ></textarea>
 
         <div className="button-group">
           <button type="button" onClick={handleAdd}>
@@ -117,7 +110,7 @@ function App() {
             setSelectedPrompt(selected);
             if (selected && prompts[selected]) {
               setPromptName(selected);
-              setPromptContent(prompts[selected]);
+              setContent(prompts[selected]);
             }
           }}
         >
